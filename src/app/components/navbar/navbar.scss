@@ -1,0 +1,85 @@
+$sm: 640px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1280px;
+$xxl: 1536px;
+
+:host {
+  --electric-violet: oklch(53.18% 0.28 296.97);
+  --light-purple: oklch(82.7% 0.119 306.383);
+  --rich-black: oklch(12.94% 0.02 264.45);
+  --white: oklch(100% 0 0);
+}
+header {
+  background: linear-gradient(to right, var(--light-purple) 40%, var(--white));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 1rem;
+
+  color: var(--rich-black);
+  font-weight: 700;
+
+  .header-logo {
+    h1 {
+      margin: 0;
+      font-size: 17px;
+      a {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+    }
+  }
+
+  nav {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      > :not([hidden]) ~ :not([hidden]) {
+        margin-left: 1rem;
+        align-items: center;
+      }
+
+      li {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  a {
+    text-decoration: none; 
+  }
+}
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; // Optional: Add default horizontal padding like Tailwind
+  padding-right: 1rem; // Optional: Add default horizontal padding like Tailwind
+
+  @media (min-width: $sm) {
+    max-width: $sm;
+  }
+
+  @media (min-width: $md) {
+    max-width: $md;
+  }
+
+  @media (min-width: $lg) {
+    max-width: $lg;
+  }
+
+  @media (min-width: $xl) {
+    max-width: $xl;
+  }
+
+  @media (min-width: $xxl) {
+    max-width: $xxl;
+  }
+}
