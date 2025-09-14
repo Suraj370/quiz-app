@@ -15,8 +15,10 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 1rem;
-
+  padding: 1rem 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   color: var(--rich-black);
   font-weight: 700;
 
@@ -24,6 +26,8 @@ header {
     h1 {
       margin: 0;
       font-size: 17px;
+
+      color: var(--rich-black);
       a {
         width: 100%;
         height: 100%;
@@ -46,13 +50,16 @@ header {
       li {
         &:hover {
           text-decoration: underline;
+     
         }
+      
       }
     }
   }
 
   a {
     text-decoration: none; 
+      color: var(--rich-black);
   }
 }
 
