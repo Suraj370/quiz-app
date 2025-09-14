@@ -1,0 +1,172 @@
+<!-- signup.component.html -->
+<div class="signup-container">
+  <div class="signup-card">
+    <div class="signup-header">
+      <h1 class="signup-title">Create Account</h1>
+      <p class="signup-subtitle">Join us today and get started</p>
+    </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="signup-form">
+      <div class="form-row">
+        <div class="form-group half-width">
+          <label for="firstName" class="form-label">First Name</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              class="form-input"
+              [class.error]="hasError('firstName')"
+              placeholder="Enter first name"
+            />
+            <i class="input-icon person-icon"></i>
+          </div>
+          <span class="error-message" *ngIf="hasError('firstName')">
+            {{ getErrorMessage('firstName') }}
+          </span>
+        </div>
+
+        <div class="form-group half-width">
+          <label for="lastName" class="form-label">Last Name</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="lastName"
+              formControlName="lastName"
+              class="form-input"
+              [class.error]="hasError('lastName')"
+              placeholder="Enter last name"
+            />
+            <i class="input-icon person-icon"></i>
+          </div>
+          <span class="error-message" *ngIf="hasError('lastName')">
+            {{ getErrorMessage('lastName') }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <div class="input-wrapper">
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-input"
+            [class.error]="hasError('email')"
+            placeholder="Enter your email address"
+          />
+          <i class="input-icon email-icon"></i>
+        </div>
+        <span class="error-message" *ngIf="hasError('email')">
+          {{ getErrorMessage('email') }}
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+            class="form-input"
+            [class.error]="hasError('password')"
+            placeholder="Create a password"
+          />
+          <i class="input-icon password-icon"></i>
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="togglePasswordVisibility('password')"
+          >
+            <i [class]="showPassword ? 'eye-off-icon' : 'eye-icon'"></i>
+          </button>
+        </div>
+
+        <!-- Password Strength Indicator -->
+        <div class="password-strength" *ngIf="signupForm.get('password')?.value">
+          <div class="strength-bar">
+            <div class="strength-fill" [class]="getPasswordStrengthClass()"></div>
+          </div>
+          <span class="strength-text" [class]="getPasswordStrengthClass()">
+            {{ getPasswordStrengthText() }}
+          </span>
+        </div>
+
+        <span class="error-message" *ngIf="hasError('password')">
+          {{ getErrorMessage('password') }}
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <div class="input-wrapper">
+          <input
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            class="form-input"
+            [class.error]="hasError('confirmPassword')"
+            placeholder="Confirm your password"
+          />
+          <i class="input-icon password-icon"></i>
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="togglePasswordVisibility('confirmPassword')"
+          >
+            <i [class]="showConfirmPassword ? 'eye-off-icon' : 'eye-icon'"></i>
+          </button>
+        </div>
+        <span class="error-message" *ngIf="hasError('confirmPassword')">
+          {{ getErrorMessage('confirmPassword') }}
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label class="checkbox-container">
+          <input type="checkbox" formControlName="acceptTerms" class="checkbox" />
+          <span class="checkmark"></span>
+          <span class="terms-text">
+            I agree to the
+            <a href="#" class="terms-link">Terms of Service</a>
+            and
+            <a href="#" class="terms-link">Privacy Policy</a>
+          </span>
+        </label>
+        <span class="error-message" *ngIf="hasError('acceptTerms')">
+          {{ getErrorMessage('acceptTerms') }}
+        </span>
+      </div>
+
+      <button
+        type="submit"
+        class="submit-button"
+        [disabled]="isLoading || signupForm.invalid"
+        [class.loading]="isLoading"
+      >
+        <span *ngIf="!isLoading">Create Account</span>
+        <div *ngIf="isLoading" class="loading-spinner"></div>
+      </button>
+    </form>
+
+    <div class="signup-footer">
+      <p class="login-prompt">
+        Already have an account?
+        <button type="button" class="login-link" (click)="navigateToLogin()">Sign in</button>
+      </p>
+    </div>
+
+    <div class="divider">
+      <span>or</span>
+    </div>
+
+    <div class="social-login">
+      <button type="button" class="social-button google">
+        <i class="google-icon"></i>
+        Continue with Google
+      </button>
+    </div>
+  </div>
+</div>
