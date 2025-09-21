@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { Auth } from '../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class Login {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: Auth
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -29,13 +31,16 @@ export class Login {
     if (this.loginForm.valid) {
       this.isLoading = true;
       console.log('Login data:', this.loginForm.value);
-      
-      // Simulate API call
-      setTimeout(() => {
+      const { email, password } = this.loginForm.value;
+      if(this.authService.login(email.trim(), password.trim())){
         this.isLoading = false;
-        // Navigate to dashboard or home page after successful login
-        this.router.navigate(['/dashboard']);
-      }, 2000);
+        this.router.navigate(['/']);
+      } else{
+        this.isLoading = false;
+        alert('Invalid email or password');
+      }
+
+
     } else {
       this.markFormGroupTouched();
     }
