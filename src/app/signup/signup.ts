@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ReactiveFormsModule } from '@angular/forms';
 
 import { Router } from '@angular/router';
+import { Auth } from '../services/auth';
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +21,8 @@ export class Signup {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: Auth
   ) {
     this.signupForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
@@ -80,18 +82,18 @@ export class Signup {
     if (this.signupForm.valid) {
       this.isLoading = true;
       const formData = { ...this.signupForm.value };
-      delete formData.confirmPassword; // Don't send confirm password to API
+      delete formData.confirmPassword;
       
       console.log('Signup data:', formData);
       
-      // Simulate API call
-      setTimeout(() => {
+      if(this.authService.signup(formData.email.trim(), formData.password.trim())){
         this.isLoading = false;
-        // Navigate to login or dashboard after successful signup
-        this.router.navigate(['/login'], { 
-          queryParams: { message: 'Account created successfully! Please sign in.' }
-        });
-      }, 2000);
+        alert('Signup successful! Please login.');
+        this.router.navigate(['/login']);
+      } else{
+        this.isLoading = false;
+        alert('Signup failed. Please try again.');
+      }
     } else {
       this.markFormGroupTouched();
     }
