@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { environment } from '../../environments/environment.development';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,8 +10,8 @@ export class Auth {
   private authSecretKey = 'Bearer Token' ;
 
   login(email: string, password: string): boolean{
-    if(email == 'tempuser@gmail.com' && password == "Temp123"){
-      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpheWRlZXAgUGF0aWwiLCJpYXQiOjE1MTYyMzkwMjJ9.yt3EOXf60R62Mef2oFpbFh2ihkP5qZ4fM8bjVnF8YhA'; // Generate or receive the token from your server
+    if(email == environment.email && password == environment.password){
+      const authToken = environment.token; // Generate or receive the token from your server
       localStorage.setItem(this.authSecretKey, authToken);
       this.isAuthenticated = true;
       return true;
